@@ -1,10 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
 </head>
 <body>
-$END$
+  <header class="p-3 mb-3 border-bottom">
+      <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+              <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                  <use xlink:href="#bootstrap"></use>
+              </svg>
+          </a>
+              <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                  <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
+                  <li><a href="#" class="nav-link px-5 link-body-emphasis">Категории</a></li>
+              </ul>
+              <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                  <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+              </form>
+                   <a href="/register" class="reg_button"><button type="submit" class="reg_button">Войти</button></a>
+          </div>
+      </div>
+  </header>
+  <div class="d-flex justify-content-center align-items-center">
+    <form class="neumorphic neumorphic-card" method="post" style="min-width: 300px;">
+        {% csrf_token %}
+        <h4>Регистрация</h4>
+        <input type="text" name="username" id="username" placeholder="username" class="neumorphic neumorphic-input" required>
+        <input type="email" name="email" id="email" placeholder="e-mail" class="neumorphic neumorphic-input" required>
+        <input type="password" name="password1" id="password" placeholder="password" class="neumorphic neumorphic-input" required>
+        <input type="password" name="password2" id="password_conf" placeholder="password" class="neumorphic neumorphic-input" required>
+        <button type="submit" class="neumorphic neumorphic-button">Зарегистрироваться</button>
+    </form>
+  </div>
 </body>
 </html>
