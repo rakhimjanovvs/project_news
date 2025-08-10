@@ -18,7 +18,6 @@
         </a>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
-                <li><a href="#" class="nav-link px-5 link-body-emphasis">Категории</a></li>
             </ul>
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" placeholder="Search..." aria-label="Search">
@@ -32,15 +31,25 @@
         </div>
     </div>
 </header>
-        {% for n in news %}
-        <div class="container">
-            <pre>{{ form }}</pre>
-            <p>{{ n.news_category }}</p>
-            <h1>{{ n }}</h1>
-            <p>{{ n.main_content|slice:":512" }} ...</p>
-            <p>{{ n.added_date }}</p>
-            <a href="{% url 'news_detail' n.pk %}">Подробнее</a>
-        </div>
+
+
+<div class="container">
+    <ul class="category-block">
+        {% for category in news_category %}
+            <li><a class="category" href="{% url 'news_by_category' category.pk %}">{{ category.category_name }}</a></li>
         {% endfor %}
+    </ul>
+</div>
+
+{% for n in news %}
+<div class="container">
+    <pre>{{ form }}</pre>
+    <p>{{ n.news_category }}</p>
+    <h1>{{ n }}</h1>
+    <p>{{ n.main_content|slice:":512" }} ...</p>
+    <p>{{ n.added_date }}</p>
+    <a href="{% url 'news_detail' n.pk %}">Подробнее</a>
+</div>
+{% endfor %}
 </body>
 </html>

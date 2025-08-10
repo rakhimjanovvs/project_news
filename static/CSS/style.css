@@ -14,7 +14,7 @@ body {
 }
 .container {
   margin: 20px auto;
-  border-radius: 20px;
+  border-radius: 30px;
   background: #e0e5ec;
   padding: 40px;
   box-shadow: 10px 10px 20px #a3b1c6,  -10px -10px 20px #fff;
@@ -124,4 +124,42 @@ select:focus {
     box-shadow: 2.5px 2.5px 5px #a3b1c6,  -2.5px -2.5px 5px #fff;;
     border: none;
     outline: none;
+}
+
+.category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 24px;
+    color: black;
+    width: 200px;
+    height: 200px;
+    background: #e0e5ec;
+    border-radius: 30px;
+    box-shadow: 10px 10px 20px #a3b1c6,  -10px -10px 20px #fff;
+    padding: 10px 25px;
+    transition: 0.3s;
+}
+
+.category:hover {
+    box-shadow: 2.5px 2.5px 5px #a3b1c6,  -2.5px -2.5px 5px #fff;
+}
+
+.category-block {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style-type: none;
+}
+
+.category-back {
+    width: 300px;
+    background: #e0e5ec;
+    border-radius: 30px;
+    box-shadow: 10px 10px 20px #a3b1c6,  -10px -10px 20px #fff;
+    padding: 25px 25px;
+    margin-left: 35px;
+    border: none;
+    transition:  0.3s;
 }

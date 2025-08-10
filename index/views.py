@@ -96,3 +96,12 @@ def add_news(request):
     else:
         form = NewsForm()
     return render(request, 'news/add_news.html', {'form': form})
+
+
+def news_by_category(request, pk):
+    category = get_object_or_404(NewsCategory, pk=pk)
+    news_list = News.objects.filter(news_category=category).order_by('-added_date')
+    return render(request, 'news/news_by_category.html', {
+        'category': category,
+        'news_list': news_list
+    })

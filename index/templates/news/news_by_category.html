@@ -31,16 +31,22 @@
         </div>
     </div>
 </header>
-
 <div class="container">
-  {% block content %}
-  <h2>Добавить новость</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="neumorphic-button button" type="submit">Сохранить</button>
-  </form>
-{% endblock %}
+<h1>Новости категории: {{ category.category_name }}</h1>
+
+<ul>
+    {% for news in news_list %}
+        <div class="container">
+            <h2>{{ news.title }}</h2>
+            <p>{{ news.added_date }}</p>
+            <a href="{% url 'news_detail' news.pk %}">Подробнее</a>
+        </div>
+    {% empty %}
+        <li>Нет новостей в этой категории.</li>
+    {% endfor %}
+</ul>
+
+<a class="button category-back" href="/">← Назад на главную</a>
 </div>
 </body>
 </html>
