@@ -27,20 +27,38 @@
                 <a href="/add/" class ="button button-header">Добавить новость</a>
                 <a href="/logout" class ="button button-header" >Выйти</a>
             {% else %}
-                <a href="accounts/login/" class="button button-header">Войти</a>
+                <a href="/accounts/login/" class="button button-header">Войти</a>
             {% endif %}
         </div>
     </div>
 </header>
-        {% for n in news %}
-        <div class="container">
-            <pre>{{ form }}</pre>
-            <p>{{ n.news_category }}</p>
-            <h1>{{ n }}</h1>
-            <p>{{ n.main_content|slice:":512" }} ...</p>
-            <p>{{ n.added_date }}</p>
-            <a href="{% url 'news_detail' n.pk %}">Подробнее</a>
-        </div>
-        {% endfor %}
+
+<div class="container">
+<h1>{{ news.title }}</h1>
+<p>{{ news.main_content }}</p>
+<p>{{ added_date }}</p>
+<hr>
+
+<h3>Комментарии:</h3>
+{% for comment in comments %}
+<div style="border-bottom: 1px solid #ddd; margin-bottom: 10px; padding: 5px;">
+    <strong>{{ comment.author.username }}</strong> ({{ comment.created_at|date:"d.m.Y H:i" }})
+    <p>{{ comment.text }}</p>
+</div>
+{% empty %}
+<p>Комментариев пока нет.</p>
+{% endfor %}
+
+<hr>
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="reg_button send">Отправить</button>
+</form>
+{% else %}
+<p>Пожалуйста, <a href="{% url 'login' %}">войдите</a>, чтобы оставить комментарий.</p>
+{% endif %}
+</div>
 </body>
 </html>

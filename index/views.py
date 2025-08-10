@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import News, NewsCategory
-from .forms import RegForm
+from django.urls import reverse
+from .forms import RegForm, CommentForm, NewsForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.views import View
 
@@ -25,8 +27,9 @@ class Register(View):
 
     # этап 2 - отправка формы в БД
     def post(self, request):
+        print(request.POST)
         form = RegForm(request.POST)
-
+        print(form.errors)
         if form.is_valid():
             # Достали данные которые ввел пользователь
             username = form.cleaned_data.get('username')
@@ -44,3 +47,52 @@ class Register(View):
 
             # Переводим на главную страницу
             return redirect('/')
+
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+
+def login_view(request):
+    login(request)
+    return redirect('/')
+
+
+def news_detail(request, pk):
+    news_item = get_object_or_404(News, pk=pk)
+    comments = news_item.comments.all().order_by('-created_at')
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.news = news_item
+                comment.author = request.user
+                comment.save()
+                return redirect('news_detail', pk=news_item.pk)
+        else:
+            return redirect('login')
+    else:
+        form = CommentForm()
+
+    return render(request, 'news/news_detail.html', {
+        'news': news_item,
+        'comments': comments,
+        'form': form
+    })
+
+
+def add_news(request):
+    if request.method == 'POST':
+        form = NewsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = NewsForm()
+    return render(request, 'news/add_news.html', {'form': form})

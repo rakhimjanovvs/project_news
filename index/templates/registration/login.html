@@ -25,7 +25,7 @@
               </form>
               {% if user.is_authenticated %}
                   <div class="text-end">
-                      <a href="/add" class="button button-header">Добавить новость</a>
+                      <a href="/cart" class="button button-header">Добавить новость</a>
                       <a href="/logout" class="button button-header">Выйти</a>
                   </div>
               {% else %}
@@ -37,28 +37,12 @@
   <div class="d-flex justify-content-center align-items-center">
     <form class="neumorphic neumorphic-card" method="post" style="min-width: 500px;">
         {% csrf_token %}
-        <h4>Регистрация</h4>
-        <input type="text" name="username" id="username" placeholder="username" class="neumorphic neumorphic-input" required>
-        <input type="email" name="email" id="email" placeholder="e-mail" class="neumorphic neumorphic-input" required>
-        <input type="password" name="password1" id="password" placeholder="password" class="neumorphic neumorphic-input" required>
-        <input type="password" name="password2" id="password_conf" placeholder="password" class="neumorphic neumorphic-input" required>
-        <button type="submit" class="button neumorphic-button">Зарегистрироваться</button>
-        <p class="text-grey mt-4">Уже есть аккаунт? Можете <a href="accounts/login">Войти</a></p>
+        <h4>Войти</h4>
+        <input type="text" name="username" id="username" placeholder="username" required>
+        <input type="password" name="password" id="password" placeholder="password"  required>
+        <button type="submit" class="button neumorphic-button">Войти</button>
+        <p class="text-grey mt-4">Нет аккаунта? Тогда вы можете <a href="/register">Зарегистрироваться</a></p>
     </form>
-      {% if form.errors %}
-      <div class="alert alert-danger">
-          <ul>
-              {% for field in form %}
-              {% for error in field.errors %}
-              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-              {% endfor %}
-              {% endfor %}
-              {% for error in form.non_field_errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-          </ul>
-      </div>
-      {% endif %}
   </div>
 </body>
 </html>

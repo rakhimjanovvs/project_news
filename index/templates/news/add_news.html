@@ -32,15 +32,16 @@
         </div>
     </div>
 </header>
-        {% for n in news %}
-        <div class="container">
-            <pre>{{ form }}</pre>
-            <p>{{ n.news_category }}</p>
-            <h1>{{ n }}</h1>
-            <p>{{ n.main_content|slice:":512" }} ...</p>
-            <p>{{ n.added_date }}</p>
-            <a href="{% url 'news_detail' n.pk %}">Подробнее</a>
-        </div>
-        {% endfor %}
+
+<div class="container">
+  {% block content %}
+  <h2>Добавить новость</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="neumorphic-button" type="submit">Сохранить</button>
+  </form>
+{% endblock %}
+</div>
 </body>
 </html>
